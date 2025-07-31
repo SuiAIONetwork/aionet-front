@@ -1,0 +1,871 @@
+/* eslint-disable tailwindcss/no-custom-classname */
+/* stylelint-disable selector-class-pattern */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Sui Connect Button Styling - Multiple selectors for higher specificity */
+.sui-connect-button-wrapper button,
+.sui-connect-button-wrapper [data-dapp-kit="connectButton"],
+button[data-dapp-kit="connectButton"],
+[data-dapp-kit="connectButton"] {
+  background: #4DA2FF !important;
+  background-color: #4DA2FF !important;
+  border: none !important;
+  border-radius: 0.5rem !important;
+  color: white !important;
+  font-weight: 500 !important;
+  padding: 0.5rem 1rem !important;
+  font-size: 0.875rem !important;
+  transition: all 0.2s ease !important;
+  box-shadow: 0 2px 4px rgba(77, 162, 255, 0.2) !important;
+  width: 100% !important;
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+.sui-connect-button-wrapper button:hover,
+.sui-connect-button-wrapper [data-dapp-kit="connectButton"]:hover,
+button[data-dapp-kit="connectButton"]:hover,
+[data-dapp-kit="connectButton"]:hover {
+  background: rgba(77, 162, 255, 0.8) !important;
+  background-color: rgba(77, 162, 255, 0.8) !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 8px rgba(77, 162, 255, 0.3) !important;
+}
+
+/* Ensure ConnectButton dropdown/menu is visible */
+.sui-connect-button-wrapper [data-dapp-kit="connectButton"] > div,
+.sui-connect-button-wrapper [data-dapp-kit="connectButton"] > ul,
+.sui-connect-button-wrapper [data-dapp-kit="connectButton"] [role="menu"] {
+  background: #0A1628 !important;
+  border: 1px solid #C0E6FF !important;
+  border-radius: 0.5rem !important;
+  color: white !important;
+  z-index: 9999 !important;
+}
+
+/* Style disconnect option in ConnectButton dropdown */
+.sui-connect-button-wrapper [data-dapp-kit="connectButton"] [role="menuitem"] {
+  color: #ff4444 !important;
+  padding: 0.5rem 1rem !important;
+}
+
+.sui-connect-button-wrapper [data-dapp-kit="connectButton"] [role="menuitem"]:hover {
+  background: rgba(255, 68, 68, 0.1) !important;
+}
+
+
+
+/* Font variables */
+:root {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-heading: var(--font-space-grotesk), monospace, var(--font-inter), ui-sans-serif, system-ui;
+}
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+
+    --primary: 221.2 83.2% 53.3%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 221.2 83.2% 53.3%;
+
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 217.2 91.2% 59.8%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 224.3 76.3% 48%;
+  }
+
+  .blue-theme {
+    --background: 217 42% 12%;
+    --foreground: 210 40% 98%;
+
+    --card: 217 42% 12%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 217 42% 12%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 217.2 91.2% 59.8%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 224.3 76.3% 48%;
+  }
+
+  /* Additional blue theme styles */
+  html.blue-theme {
+    background-color: #0c1b36;
+  }
+
+  html.blue-theme body {
+    background-color: #0c1b36;
+    color: white;
+  }
+
+  /* Blue theme specific styles for cards */
+  html.blue-theme .bg-card,
+  html.blue-theme .bg-background {
+    background-color: #0c1b36;
+  }
+
+  html.blue-theme .border-border {
+    border-color: rgba(59, 130, 246, 0.2);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+  }
+
+  /* Typography enhancements */
+  h1 {
+    font-weight: 700;
+    letter-spacing: -0.03em;
+  }
+
+  h2 {
+    letter-spacing: -0.02em;
+  }
+
+  .gradient-heading {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-purple-600;
+    font-family: var(--font-heading);
+    text-shadow: 0 0 30px rgba(59, 130, 246, 0.2);
+  }
+
+  /* High-tech text styles */
+  .tech-text {
+    font-family: var(--font-heading);
+    letter-spacing: 0.02em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .mono-text {
+    font-family: var(--font-heading);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.02em;
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* Data display styles */
+  .data-value {
+    font-family: var(--font-heading);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.01em;
+    font-feature-settings: "tnum" 1;
+  }
+
+  /* Futuristic number display */
+  .tech-number {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.02em;
+    font-feature-settings: "tnum" 1, "zero" 1;
+  }
+}
+
+/* Custom scrollbar styles */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(59, 130, 246, 0.3);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(59, 130, 246, 0.5);
+}
+
+/* Dark theme scrollbar */
+.dark ::-webkit-scrollbar-thumb {
+  background: rgba(59, 130, 246, 0.3);
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: rgba(59, 130, 246, 0.5);
+}
+
+/* Blue theme scrollbar */
+.blue-theme ::-webkit-scrollbar-thumb {
+  background: rgba(59, 130, 246, 0.3);
+}
+
+.blue-theme ::-webkit-scrollbar-thumb:hover {
+  background: rgba(59, 130, 246, 0.5);
+}
+
+/* Clerk custom styles to ensure text visibility */
+.cl-userButtonPopoverActionButton,
+.cl-userButtonPopoverActionButtonText,
+.cl-userButtonPopoverActionButtonIcon,
+.cl-userPreviewMainIdentifier,
+.cl-userPreviewSecondaryIdentifier,
+.cl-profileSectionTitle,
+.cl-profileSectionTitleText,
+.cl-accordionTriggerButton,
+.cl-navbarButton,
+.cl-headerTitle,
+.cl-headerSubtitle,
+.cl-formFieldLabel,
+.cl-formFieldLabelRow,
+.cl-formFieldInfoText,
+.cl-main p,
+.cl-main span,
+.cl-main div,
+.cl-main label,
+.cl-main button,
+.cl-userButtonPopoverActionButtonArrow,
+.cl-userButtonPopoverActionButtonIconBox {
+  color: white !important;
+}
+
+/* Ensure avatar menu items are visible */
+.cl-userButtonPopoverActionButton,
+.cl-userButtonPopoverActionButtonText {
+  color: white !important;
+  font-weight: 500 !important;
+}
+
+/* Override any default hover styles that might change text color */
+.cl-userButtonPopoverActionButton:hover,
+.cl-userButtonPopoverActionButton:hover * {
+  color: white !important;
+}
+
+/* Exception for Sign Out button - should stay red on hover */
+.cl-userButtonPopoverActionButton[data-localization-key="userButton.signOut"]:hover,
+.cl-userButtonPopoverActionButton[data-localization-key="userButton.signOut"]:hover * {
+  color: #ef4444 !important;
+}
+
+/* Target specific menu items by their position */
+.cl-userButtonPopoverActionButton:nth-child(1),
+.cl-userButtonPopoverActionButton:nth-child(2),
+.cl-userButtonPopoverActionButton:nth-child(3) {
+  color: white !important;
+}
+
+.cl-userButtonPopoverActionButton:nth-child(1) .cl-userButtonPopoverActionButtonText,
+.cl-userButtonPopoverActionButton:nth-child(2) .cl-userButtonPopoverActionButtonText,
+.cl-userButtonPopoverActionButton:nth-child(3) .cl-userButtonPopoverActionButtonText {
+  color: white !important;
+}
+
+/* Ensure consistent styling for all menu items */
+.cl-userButtonPopoverActionButton {
+  padding: 8px 16px !important;
+  border-radius: 4px !important;
+  margin: 2px 0 !important;
+}
+
+/* Set the menu width to 200px */
+.cl-userButtonPopoverCard {
+  width: 200px !important;
+  min-width: 200px !important;
+  max-width: 200px !important;
+}
+
+/* Ensure avatar menu item icons are visible */
+.cl-userButtonPopoverActionButtonIcon svg {
+  color: white !important;
+  fill: white !important;
+  stroke: white !important;
+}
+
+.cl-internal-b3fm6y,
+.cl-internal-wkkub3,
+.cl-internal-1xpzg9n {
+  color: white !important;
+}
+
+/* Fix hover effects for all menu items */
+.cl-userButtonPopoverActionButton:hover {
+  background-color: rgba(59, 130, 246, 0.2) !important;
+}
+
+/* Ensure text stays white on hover for all menu items */
+.cl-userButtonPopoverActionButton .cl-userButtonPopoverActionButtonText,
+.cl-userButtonPopoverActionButton .cl-userButtonPopoverActionButtonIcon,
+.cl-userButtonPopoverActionButton:hover .cl-userButtonPopoverActionButtonText,
+.cl-userButtonPopoverActionButton:hover .cl-userButtonPopoverActionButtonIcon {
+  color: white !important;
+}
+
+/* Target the Profile, Subscriptions, and Settings links specifically */
+.cl-userButtonPopoverActions > div:nth-child(1) .cl-userButtonPopoverActionButton,
+.cl-userButtonPopoverActions > div:nth-child(2) .cl-userButtonPopoverActionButton,
+.cl-userButtonPopoverActions > div:nth-child(3) .cl-userButtonPopoverActionButton {
+  color: white !important;
+}
+
+.cl-userButtonPopoverActions > div:nth-child(1) .cl-userButtonPopoverActionButtonText,
+.cl-userButtonPopoverActions > div:nth-child(2) .cl-userButtonPopoverActionButtonText,
+.cl-userButtonPopoverActions > div:nth-child(3) .cl-userButtonPopoverActionButtonText {
+  color: white !important;
+}
+
+/* Force white text on hover for the first 3 items */
+.cl-userButtonPopoverActions > div:nth-child(1) .cl-userButtonPopoverActionButton:hover .cl-userButtonPopoverActionButtonText,
+.cl-userButtonPopoverActions > div:nth-child(2) .cl-userButtonPopoverActionButton:hover .cl-userButtonPopoverActionButtonText,
+.cl-userButtonPopoverActions > div:nth-child(3) .cl-userButtonPopoverActionButton:hover .cl-userButtonPopoverActionButtonText {
+  color: white !important;
+}
+
+/* Force white icons on hover for the first 3 items */
+.cl-userButtonPopoverActions > div:nth-child(1) .cl-userButtonPopoverActionButton:hover .cl-userButtonPopoverActionButtonIcon svg,
+.cl-userButtonPopoverActions > div:nth-child(2) .cl-userButtonPopoverActionButton:hover .cl-userButtonPopoverActionButtonIcon svg,
+.cl-userButtonPopoverActions > div:nth-child(3) .cl-userButtonPopoverActionButton:hover .cl-userButtonPopoverActionButtonIcon svg {
+  color: white !important;
+  fill: white !important;
+  stroke: white !important;
+}
+
+/* Style the Sign Out button to be red */
+.cl-userButtonPopoverActionButton[data-localization-key="userButton.signOut"] {
+  color: #ef4444 !important; /* Red-500 */
+}
+
+.cl-userButtonPopoverActionButton[data-localization-key="userButton.signOut"] .cl-userButtonPopoverActionButtonText {
+  color: #ef4444 !important; /* Red-500 */
+}
+
+.cl-userButtonPopoverActionButton[data-localization-key="userButton.signOut"] .cl-userButtonPopoverActionButtonIcon svg {
+  color: #ef4444 !important; /* Red-500 */
+  fill: #ef4444 !important;
+  stroke: #ef4444 !important;
+}
+
+/* Target Sign Out button by its position (last child) */
+.cl-userButtonPopoverActions .cl-userButtonPopoverActionButton:last-child,
+.cl-userButtonPopoverActions .cl-userButtonPopoverActionButton:last-child .cl-userButtonPopoverActionButtonText,
+.cl-userButtonPopoverActions .cl-userButtonPopoverActionButton:last-child .cl-userButtonPopoverActionButtonIcon svg {
+  color: #ef4444 !important; /* Red-500 */
+}
+
+.cl-userButtonPopoverActionButton[data-localization-key="userButton.signOut"]:hover {
+  background-color: rgba(239, 68, 68, 0.1) !important; /* Red with opacity */
+}
+
+/* Ensure form inputs are visible */
+.cl-formFieldInput {
+  background-color: #1e293b !important;
+  color: white !important;
+  border-color: #334155 !important;
+}
+
+/* Ensure card backgrounds are dark */
+.cl-card,
+.cl-userButtonPopoverCard {
+  background-color: #0f172a !important;
+  border-color: #334155 !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Custom styles for the CTA card */
+.custom-cta-card .inner-content {
+  background: hsl(222.2, 84%, 4.9%); /* bg-card */
+  border-color: hsl(217.2, 32.6%, 17.5%); /* border-border */
+  padding: 2rem 2.5rem;
+}
+
+/* Custom styles for the How It Works cards */
+.custom-how-it-works-card .inner-content {
+  background: #020817; /* Specific dark background color */
+  border-color: rgba(30, 41, 59, 0.5); /* border-slate-800/50 */
+  transition: border-color 0.3s ease;
+}
+
+.custom-how-it-works-card:hover .inner-content {
+  border-color: rgba(51, 65, 85, 0.5); /* border-slate-700/50 - matches SpotlightCard hover */
+}
+
+/* Enhanced Clerk Authentication Styling */
+/* Main form styling */
+.cl-formButtonPrimary,
+.cl-socialButtonsBlockButton {
+  background: linear-gradient(to right, #3b82f6, #8b5cf6) !important;
+  border: none !important;
+  transition: all 0.3s ease !important;
+  font-weight: 500 !important;
+  height: 48px !important;
+}
+
+.cl-formButtonPrimary:hover,
+.cl-socialButtonsBlockButton:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 5px 15px rgba(59, 130, 246, 0.3) !important;
+}
+
+/* Input fields */
+.cl-formFieldInput {
+  background-color: rgba(15, 23, 42, 0.6) !important;
+  border: 1px solid rgba(51, 65, 85, 0.8) !important;
+  height: 48px !important;
+  border-radius: 8px !important;
+  padding: 0 16px !important;
+  font-size: 16px !important;
+  transition: all 0.3s ease !important;
+}
+
+.cl-formFieldInput:focus {
+  border-color: #3b82f6 !important;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2) !important;
+}
+
+/* Labels */
+.cl-formFieldLabel {
+  font-size: 16px !important;
+  font-weight: 500 !important;
+  margin-bottom: 8px !important;
+}
+
+/* Social buttons */
+.cl-socialButtonsBlockButton {
+  border-radius: 8px !important;
+  margin-bottom: 12px !important;
+  background: rgba(15, 23, 42, 0.8) !important;
+  border: 1px solid rgba(51, 65, 85, 0.8) !important;
+  height: 48px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 12px !important;
+}
+
+.cl-socialButtonsBlockButton:hover {
+  background: rgba(30, 41, 59, 0.8) !important;
+}
+
+/* Social button icons */
+.cl-socialButtonsBlockButtonIconBox {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 24px !important;
+  height: 24px !important;
+}
+
+/* Apple button */
+.cl-socialButtonsBlockButton[data-provider="apple"] {
+  background: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Google button */
+.cl-socialButtonsBlockButton[data-provider="google"] {
+  background: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Discord button */
+.cl-socialButtonsBlockButton[data-provider="discord"] {
+  background: rgba(114, 137, 218, 0.2) !important;
+}
+
+/* Sign in/up links */
+.cl-footerActionLink {
+  color: #3b82f6 !important;
+  font-weight: 500 !important;
+  text-decoration: none !important;
+  transition: all 0.2s ease !important;
+}
+
+.cl-footerActionLink:hover {
+  color: #60a5fa !important;
+  text-decoration: underline !important;
+}
+
+/* Card title */
+.cl-headerTitle {
+  font-size: 24px !important;
+  font-weight: 700 !important;
+  margin-bottom: 8px !important;
+  font-family: var(--font-heading) !important;
+  letter-spacing: -0.02em !important;
+}
+
+.cl-headerSubtitle {
+  font-size: 16px !important;
+  opacity: 0.8 !important;
+  margin-bottom: 24px !important;
+  font-family: var(--font-sans) !important;
+}
+
+/* Dividers and separators */
+.cl-dividerText {
+  font-size: 14px !important;
+  opacity: 0.7 !important;
+}
+
+.cl-dividerLine {
+  background-color: rgba(51, 65, 85, 0.5) !important;
+}
+
+/* Make the form more spacious */
+.cl-card {
+  padding: 32px !important;
+  border-radius: 12px !important;
+  max-width: 400px !important;
+  border: 1px solid rgba(59, 130, 246, 0.2) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3),
+              0 0 0 1px rgba(59, 130, 246, 0.1) !important;
+  backdrop-filter: blur(10px) !important;
+}
+
+/* Continue button */
+.cl-formButtonPrimary {
+  margin-top: 16px !important;
+  border-radius: 8px !important;
+  font-size: 16px !important;
+  letter-spacing: 0.5px !important;
+  font-family: var(--font-heading) !important;
+  font-weight: 600 !important;
+}
+
+/* Form footer */
+.cl-footerAction {
+  margin-top: 24px !important;
+  font-size: 15px !important;
+}
+
+/* Form field spacing */
+.cl-formField {
+  margin-bottom: 20px !important;
+}
+
+
+
+/* ... existing code ... */
+
+/* Add these glass-morphism card styles */
+.glass-card {
+  background: linear-gradient(135deg, rgb(0 91 255 / 64%), rgb(6 19 41 / 97%));
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(30, 58, 138, 0.3);
+    box-shadow: 0 8px 32px 0 rgb(8 33 211 / 78%);
+}
+
+.glass-card:hover {
+  background: linear-gradient(135deg, rgba(12, 27, 54, 0.8), rgba(15, 43, 90, 0.5));
+  border: 1px solid rgba(30, 58, 138, 0.4);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+}
+
+/* Orbital Animation Styles */
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes reverse-spin {
+  from {
+    transform: rotate(360deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 20s linear infinite;
+}
+
+.animate-reverse-spin {
+  animation: reverse-spin 15s linear infinite;
+}
+
+/* Add subtle shine effect */
+.glass-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  background: linear-gradient(
+    45deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.03) 50%,
+    transparent 100%
+  );
+  pointer-events: none;
+}
+.bot-card-shadow {
+  --tw-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --tw-shadow-colored: 2 12px 15px 0 var(--tw-shadow-color);
+  box-shadow: 1px 0px 3px 2px #0c57edeb, 0px 0px 6px 4px #000000f7, 0px 0px 8px 4px rgb(16 119 247 / 19%);
+}
+
+.bot-card-shadow:hover {
+  --tw-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --tw-shadow-colored: 0 1px 2px 0 var(--tw-shadow-color);
+  box-shadow: 0 0 2px 2px #010725, 0 0 1px 1px #0018c5de, 0 1px 3px 3px rgb(33 150 243 / 89%);
+}
+
+.bot-card-shadow2 {
+  border-radius: 10px;
+  --tw-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --tw-shadow-colored: 0 1px 2px 0 var(--tw-shadow-color);
+  box-shadow: 0 0 2px 2px #010725, 0 0 1px 1px #0018c5de, 0 1px 3px 3px rgb(33 150 243 / 89%);
+}
+
+.bot-card-shadow2:hover {
+  --tw-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --tw-shadow-colored: 0 1px 2px 0 var(--tw-shadow-color);
+  box-shadow: 0 0 2px 2px #1e233b, 0 0 1px 1px #0017c5ab, 0 1px 3px 3px rgba(33, 149, 243, 0.61);
+}
+
+/* Enhanced Card Styles */
+.enhanced-card {
+  background: linear-gradient(135deg, #252D4A, #1A3C6D);
+  padding: 0;
+  border-radius: 15px;
+  flex: 1;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2), inset 0 0 10px rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(0, 184, 230, 0.2);
+  position: relative;
+  overflow: visible;
+}
+
+.enhanced-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3), inset 0 0 15px rgba(255, 255, 255, 0.15);
+}
+
+.enhanced-card-content {
+  text-align: left;
+  padding: 15px;
+  background: transparent;
+  border-radius: 10px;
+}
+
+/* RaffleCraft Specific Animations */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes glow {
+  0%, 100% { box-shadow: 0 0 5px rgba(77, 162, 255, 0.3); }
+  50% { box-shadow: 0 0 20px rgba(77, 162, 255, 0.6); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.float-animation {
+  animation: float 3s ease-in-out infinite;
+}
+
+.glow-animation {
+  animation: glow 2s ease-in-out infinite;
+}
+
+.shimmer-effect {
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+/* Organic Layout Helpers */
+.organic-rotate-1 { transform: rotate(1deg); }
+.organic-rotate-2 { transform: rotate(-1.5deg); }
+.organic-rotate-3 { transform: rotate(0.8deg); }
+.organic-rotate-4 { transform: rotate(-0.5deg); }
+
+.organic-rotate-1:hover { transform: rotate(0deg) scale(1.02); }
+.organic-rotate-2:hover { transform: rotate(0deg) scale(1.02); }
+.organic-rotate-3:hover { transform: rotate(0deg) scale(1.02); }
+.organic-rotate-4:hover { transform: rotate(0deg) scale(1.02); }
+
+/* Admin Controls Animations */
+@keyframes slide-in-from-bottom {
+  0% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-out-to-bottom {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+}
+
+.animate-in {
+  animation-fill-mode: both;
+}
+
+.slide-in-from-bottom-4 {
+  animation: slide-in-from-bottom 0.3s ease-out;
+}
+
+.slide-out-to-bottom-4 {
+  animation: slide-out-to-bottom 0.3s ease-in;
+}
+
+/* Sidebar and Header Gradients */
+.sidebar-gradient {
+  background: linear-gradient(180deg, #16213E, #1A3C6D, #0F3460);
+}
+
+.header-gradient {
+  background: linear-gradient(90deg, #162342, #26589d);
+}
+
+/* Navigation Item Styles */
+.nav-item-active {
+  background: linear-gradient(90deg, #00B8E6, #007ACC) !important;
+  color: white !important;
+}
+
+.nav-item-active:hover {
+  background: linear-gradient(90deg, #00B8E6, #007ACC) !important;
+  color: white !important;
+}
+
+/* Sui dApp Kit Styles */
+/* Basic wallet connect button styles */
+.sui-connect-button {
+  background: linear-gradient(to right, #3b82f6, #8b5cf6);
+  border: none;
+  border-radius: 8px;
+  color: white;
+  padding: 8px 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.sui-connect-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+/* Wallet modal styles */
+.sui-wallet-modal {
+  background: #030f1c;
+  border: 1px solid rgba(77, 162, 255, 0.3);
+  border-radius: 12px;
+  color: white;
+}
+
+.sui-wallet-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border: 1px solid rgba(77, 162, 255, 0.3);
+  border-radius: 8px;
+  background: #030f1c;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.sui-wallet-item:hover {
+  background: rgba(77, 162, 255, 0.1);
+  border-color: rgba(77, 162, 255, 0.5);
+}
