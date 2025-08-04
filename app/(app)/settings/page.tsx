@@ -10,6 +10,7 @@ import { Input } from "@/components/ui/input"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Badge } from "@/components/ui/badge"
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { Bell, Globe, Zap, AlertTriangle, User, Shield, Eye, EyeOff, Settings, Flag } from "lucide-react"
 import { useNotifications } from "@/hooks/use-notifications"
 import { useProfile } from "@/contexts/profile-context"
@@ -20,15 +21,7 @@ import { NewUserOnboarding } from "@/components/new-user-onboarding"
 
 
 import { toast } from "sonner"
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog"
+import { deactivateAccount } from "@/actions/profile"
 
 
 export default function SettingsPage() {
@@ -68,7 +61,7 @@ export default function SettingsPage() {
 
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false)
   const [deleteConfirmation, setDeleteConfirmation] = useState("")
-  const isDeleteConfirmed = deleteConfirmation === "DELETE"
+  const isDeleteConfirmed = deleteConfirmation === "DEACTIVATE"
 
   // Load settings from persistent profile
   useEffect(() => {
@@ -128,13 +121,28 @@ export default function SettingsPage() {
     setIsSaving(false)
   }
 
-  const handleDeleteAccount = () => {
+  const handleDeactivateAccount = async () => {
     if (!isDeleteConfirmed) return
 
-    // Here you would implement the actual account deletion logic
-    console.log("Account deletion requested")
-    setDeleteDialogOpen(false)
-    setDeleteConfirmation("")
+    try {
+      console.log("Account deactivation requested")
+
+      // Call the deactivation server action
+      await deactivateAccount()
+
+      toast.success("Account deactivated successfully. You can reactivate it by logging back in.")
+
+      // Close dialog and reset form
+      setDeleteDialogOpen(false)
+      setDeleteConfirmation("")
+
+      // Optional: Sign out the user after deactivation
+      // You might want to redirect them to a deactivation confirmation page
+
+    } catch (error) {
+      console.error("Failed to deactivate account:", error)
+      toast.error("Failed to deactivate account. Please try again.")
+    }
   }
 
   return (
@@ -184,35 +192,35 @@ export default function SettingsPage() {
                 <div className="space-y-4">
                   <div className="space-y-2">
                     <p className="text-sm text-[#C0E6FF]">
-                      Deleting your account will permanently remove all your data, including your profile, settings, and trading history.
-                      This action cannot be undone.
+                      Deactivating your account will temporarily disable your profile and hide it from other users.
+                      Your data will be preserved and you can reactivate your account at any time by logging back in.
                     </p>
                   </div>
                 </div>
                 <div className="mt-6 pt-6 border-t border-red-500/20">
                   <Dialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
                     <DialogTrigger asChild>
-                      <Button variant="destructive" className="bg-red-500 hover:bg-red-600">
-                        Delete Account
+                      <Button variant="destructive" className="bg-orange-500 hover:bg-orange-600">
+                        Deactivate Account
                       </Button>
                     </DialogTrigger>
                   <DialogContent>
                     <DialogHeader>
                       <DialogTitle className="flex items-center gap-2">
-                        <AlertTriangle className="h-5 w-5 text-red-500" />
-                        <span>Confirm Account Deletion</span>
+                        <AlertTriangle className="h-5 w-5 text-orange-500" />
+                        <span>Confirm Account Deactivation</span>
                       </DialogTitle>
                       <DialogDescription>
-                        This action cannot be undone. This will permanently delete your account and remove all your data from our servers.
+                        This will temporarily deactivate your account and hide your profile. You can reactivate your account at any time by logging back in. Your data will be preserved.
                       </DialogDescription>
                     </DialogHeader>
                     <div className="py-4">
                       <p className="text-sm text-muted-foreground">
-                        Please type <span className="font-bold">DELETE</span> to confirm.
+                        Please type <span className="font-bold">DEACTIVATE</span> to confirm.
                       </p>
                       <Input
                         className="mt-2"
-                        placeholder="Type DELETE to confirm"
+                        placeholder="Type DEACTIVATE to confirm"
                         value={deleteConfirmation}
                         onChange={(e) => setDeleteConfirmation(e.target.value)}
                       />
@@ -223,11 +231,11 @@ export default function SettingsPage() {
                       </Button>
                       <Button
                         variant="destructive"
-                        className="bg-red-500 hover:bg-red-600"
-                        onClick={handleDeleteAccount}
+                        className="bg-orange-500 hover:bg-orange-600"
+                        onClick={handleDeactivateAccount}
                         disabled={!isDeleteConfirmed}
                       >
-                        Delete Account
+                        Deactivate Account
                       </Button>
                     </DialogFooter>
                   </DialogContent>

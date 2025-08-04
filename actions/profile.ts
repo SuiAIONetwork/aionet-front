@@ -318,28 +318,52 @@ export async function removeSocialLink(platform: string) {
   }
 }
 
-// Server Action: Delete user account (soft delete)
-export async function deleteAccount() {
+// Server Action: Deactivate user account (preserves all data)
+export async function deactivateAccount() {
   try {
     // Get and validate user
     const user = await requireAuth()
-    
-    // Soft delete by marking account as deleted
+
+    // Deactivate account by marking it as inactive (preserves all data)
     const { error } = await supabaseServer
       .from('user_profiles')
       .update({
-        deleted_at: new Date().toISOString(),
-        username: null,
-        email: null,
-        phone_number: null,
-        bio: null,
-        social_links: [],
+        is_active: false,
+        deactivated_at: new Date().toISOString(),
         updated_at: new Date().toISOString()
       })
       .eq('address', user.address)
 
     if (error) {
-      throw new Error('Failed to delete account')
+      throw new Error('Failed to deactivate account')
+    }
+
+    return { success: true, message: 'Account deactivated successfully' }
+  } catch (error) {
+    console.error('Failed to deactivate account:', error)
+    throw error
+  }
+}
+
+// Server Action: Reactivate user account
+export async function reactivateAccount() {
+  try {
+    // Get and validate user
+    const user = await requireAuth()
+
+    // Reactivate account
+    const { error } = await supabaseServer
+      .from('user_profiles')
+      .update({
+        is_active: true,
+        deactivated_at: null,
+        reactivated_at: new Date().toISOString(),
+        updated_at: new Date().toISOString()
+      })
+      .eq('address', user.address)
+
+    if (error) {
+      throw new Error('Failed to reactivate account')
     }
 
     // Revalidate and redirect

@@ -185,14 +185,6 @@ export default function CryptoBotsPage() {
           <h1 className="text-3xl font-bold text-white">Crypto Trading Bots</h1>
           <p className="text-[#C0E6FF] mt-1">Automated trading strategies for cryptocurrency markets</p>
         </div>
-        <Button
-          variant="outline"
-          className="hidden md:flex items-center gap-2 border-[#C0E6FF] text-[#C0E6FF] hover:bg-[#C0E6FF]/10"
-          onClick={() => setIsInfoModalOpen(true)}
-        >
-          <Bitcoin className="h-4 w-4" />
-          Learn More
-        </Button>
       </div>
 
       {/* Access Level Notice */}

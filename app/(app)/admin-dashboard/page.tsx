@@ -6,7 +6,7 @@ import { Shield, AlertTriangle, Users, Crown, Star, Flag } from 'lucide-react'
 import { AdminOverview } from '@/components/admin/admin-overview'
 import { AdminContentNotifications } from '@/components/admin/admin-content-notifications'
 import { AdminCreatorManagement } from '@/components/admin/admin-creator-management'
-import { AdminRaffleCraft } from '@/components/admin/admin-rafflecraft'
+
 import { AdminGovernance } from '@/components/admin/admin-governance'
 
 // Admin wallet address
@@ -77,8 +77,7 @@ export default function AdminDashboardPage() {
       {/* Governance Management */}
       <AdminGovernance isAdmin={isAdmin} />
 
-      {/* RaffleCraft Admin */}
-      <AdminRaffleCraft />
+
     </div>
   )
 }

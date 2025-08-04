@@ -41,10 +41,10 @@ const nftTiers: NFTTier[] = [
     features: [
       'Bybit Copy Trading (Crypto) Access',
       '$25 per 10% profit cycle',
-      'Entry to the Official Discord Community',
+      'Community Forum Access',
       'Affiliate Dashboard & Control Access',
       'AIO Creators Channels Access',
-      'E-Learning Crypto Basic Level'
+      'Basic Platform Features'
     ],
     icon: <RoleImage role="NOMAD" size="2xl" />,
     color: '#6B7280',
@@ -65,10 +65,9 @@ const nftTiers: NFTTier[] = [
     features: [
       'Bybit Copy Trading (Crypto) Access',
       'No Cycle Payments',
-      'PRO Role within the Discord Community',
+      'PRO Role within the Community',
       'Affiliate Dashboard & Control Access',
-      'E-Learning Premium',
-      'Access to rafflequiz Decentralized Application',
+      'Premium Platform Features',
       'Access to DEWhale Decentralized Application',
       'Comprehensive access to AIO Creator tools',
       'Free Access to 3 Premium AIO Creators channels'
@@ -95,7 +94,7 @@ const nftTiers: NFTTier[] = [
       'All PRO Features',
       'Bybit Copy Trading (FOREX) Access',
       'Bybit Copy Trading (STOCKS) Access',
-      'Exclusive ROYAL Role in the Discord Community',
+      'Exclusive ROYAL Role in the Community',
       'Priority early access to DEWhale DApp updates and features',
       'Free Access to 9 Premium AIO Creators channels',
       'Participation in Royalty Distribution: 10% from all new NFT mints'
@@ -327,21 +326,11 @@ export function DashboardSubscriptions() {
                   <td className="py-3 text-center"><CheckCircle className="w-4 h-4 text-green-400 mx-auto" /></td>
                   <td className="py-3 text-center"><CheckCircle className="w-4 h-4 text-green-400 mx-auto" /></td>
                 </tr>
-                <tr className="border-b border-[#C0E6FF]/10">
-                  <td className="py-3 text-white">E-Learning</td>
-                  <td className="py-3 text-center text-white">Basic Course</td>
-                  <td className="py-3 text-center text-green-400">Full Access</td>
-                  <td className="py-3 text-center text-green-400">Full Access</td>
-                </tr>
-                <tr className="border-b border-[#C0E6FF]/10">
-                  <td className="py-3 text-white">RaffleQuiz (DApp)</td>
-                  <td className="py-3 text-center"><CheckCircle className="w-4 h-4 text-green-400 mx-auto" /></td>
-                  <td className="py-3 text-center"><CheckCircle className="w-4 h-4 text-green-400 mx-auto" /></td>
-                  <td className="py-3 text-center"><CheckCircle className="w-4 h-4 text-green-400 mx-auto" /></td>
-                </tr>
+
+
                 <tr className="border-b border-[#C0E6FF]/10">
                   <td className="py-3 text-white">DEWhale (DApp)</td>
-                  <td className="py-3 text-center"><CheckCircle className="w-4 h-4 text-green-400 mx-auto" /></td>
+                  <td className="py-3 text-center text-red-400">✗</td>
                   <td className="py-3 text-center"><CheckCircle className="w-4 h-4 text-green-400 mx-auto" /></td>
                   <td className="py-3 text-center"><CheckCircle className="w-4 h-4 text-green-400 mx-auto" /></td>
                 </tr>

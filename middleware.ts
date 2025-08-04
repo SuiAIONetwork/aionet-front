@@ -66,7 +66,6 @@ const authenticatedRoutes = [
   '/governance',
   '/royalties',
   '/dapps',
-  '/metago-academy',
   '/marketplace',
   '/leaderboard',
   '/subscriptions',
@@ -75,6 +74,8 @@ const authenticatedRoutes = [
   '/affiliate-controls',
   '/forum',
   '/transaction-history',
+  '/contact-support',
+  '/reactivate-account',
   '/backend-test',
 ]
 

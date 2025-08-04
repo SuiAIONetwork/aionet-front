@@ -124,9 +124,9 @@ function UserAvatar({ user, onCardToggle, isCardOpen }: UserAvatarProps) {
       >
           {/* Main Avatar */}
           <div className="relative">
-            <Avatar className="h-20 w-20 sm:h-32 sm:w-32 lg:h-40 lg:w-40 bg-blue-100 ring-2 ring-[#4DA2FF]/30 hover:ring-[#4DA2FF] transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-[#4DA2FF]/20">
+            <Avatar className="h-10 w-10 sm:h-16 sm:w-16 lg:h-20 lg:w-20 bg-blue-100 ring-2 ring-[#4DA2FF]/30 hover:ring-[#4DA2FF] transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-[#4DA2FF]/20">
               <AvatarImage src={user.avatar} alt={user.name} />
-              <AvatarFallback className="bg-[#4DA2FF] text-white text-lg sm:text-2xl lg:text-3xl font-semibold">
+              <AvatarFallback className="bg-[#4DA2FF] text-white text-sm sm:text-lg lg:text-xl font-semibold">
                 {user.name.charAt(0)}
               </AvatarFallback>
             </Avatar>
@@ -177,16 +177,6 @@ function UserAvatar({ user, onCardToggle, isCardOpen }: UserAvatarProps) {
                           title={user.location}
                         />
                       )}
-                      {/* View Profile Button - Minimal outline */}
-                      <Button
-                        onClick={handleViewProfile}
-                        size="sm"
-                        variant="outline"
-                        className="h-6 px-2 text-xs border-[#C0E6FF]/30 text-[#C0E6FF] hover:bg-[#4DA2FF]/10 hover:border-[#4DA2FF]/50 bg-transparent"
-                      >
-                        <Eye className="w-3 h-3 mr-1" />
-                        View
-                      </Button>
                     </div>
                     <p className="text-[#C0E6FF] text-xs mb-1">{user.username}</p>
                   </div>
@@ -247,8 +237,18 @@ function UserAvatar({ user, onCardToggle, isCardOpen }: UserAvatarProps) {
                   </div>
                 )}
 
-
-
+                {/* View Profile Button - At bottom */}
+                <div className="mt-3 pt-2 border-t border-[#C0E6FF]/20">
+                  <Button
+                    onClick={handleViewProfile}
+                    size="sm"
+                    variant="outline"
+                    className="w-full h-7 text-xs border-[#C0E6FF]/30 text-[#C0E6FF] hover:bg-[#4DA2FF]/10 hover:border-[#4DA2FF]/50 bg-transparent"
+                  >
+                    <Eye className="w-3 h-3 mr-1" />
+                    View Profile
+                  </Button>
+                </div>
 
               </div>
               {/* Arrow pointing to avatar */}
@@ -272,12 +272,9 @@ export function UserAvatarGrid({ users }: UserAvatarGridProps) {
   const isMobile = useIsMobile()
   const router = useRouter()
 
-  // Responsive initial count: mobile shows 6 (2x3), tablet shows 9 (3x3), desktop shows 10 (5x2)
+  // Fixed 10x2 grid layout: always show 20 users initially
   const getInitialCount = () => {
-    if (typeof window === 'undefined') return 10
-    if (window.innerWidth < 640) return 6  // mobile: 2 cols
-    if (window.innerWidth < 1024) return 9 // tablet: 3 cols
-    return 10 // desktop: 5 cols
+    return 20 // 10x2 grid: 20 users
   }
 
   const [displayCount, setDisplayCount] = useState(getInitialCount())
@@ -287,7 +284,7 @@ export function UserAvatarGrid({ users }: UserAvatarGridProps) {
   const hasMoreUsers = users.length > displayCount
 
   const handleShowMore = () => {
-    const increment = isMobile ? 6 : 10
+    const increment = 10 // Always increment by 10 (1 more row of 10)
     setDisplayCount(prev => Math.min(prev + increment, users.length))
   }
 
@@ -380,8 +377,8 @@ export function UserAvatarGrid({ users }: UserAvatarGridProps) {
             </div>
           </div>
 
-          {/* Responsive Avatar Grid */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4 lg:gap-6 justify-items-center mb-6">
+          {/* 10x2 Avatar Grid */}
+          <div className="grid grid-cols-10 gap-2 justify-items-center mb-6">
             {displayedUsers.map((user, index) => (
               <div
                 key={user.id}
@@ -408,7 +405,7 @@ export function UserAvatarGrid({ users }: UserAvatarGridProps) {
                 variant="outline"
                 className="border-[#C0E6FF]/30 text-[#C0E6FF] hover:bg-[#C0E6FF]/10 hover:border-[#4DA2FF] transition-all duration-200"
               >
-                Show More ({Math.min(isMobile ? 6 : 10, users.length - displayCount)} more)
+                Show More ({Math.min(10, users.length - displayCount)} more)
               </Button>
             </div>
           )}
@@ -480,26 +477,6 @@ export function UserAvatarGrid({ users }: UserAvatarGridProps) {
                         title={selectedUser.location}
                       />
                     )}
-                    {/* View Profile Button - Minimal outline */}
-                    <Button
-                      onClick={(e) => {
-                        e.stopPropagation()
-                        let identifier = selectedUser.id || selectedUser.username
-                        if (identifier) {
-                          // Remove @ prefix from username if present (it gets added in community display)
-                          if (identifier.startsWith('@')) {
-                            identifier = identifier.slice(1)
-                          }
-                          router.push(`/profile/${encodeURIComponent(identifier)}`)
-                        }
-                      }}
-                      size="sm"
-                      variant="outline"
-                      className="h-6 px-2 text-xs border-[#C0E6FF]/30 text-[#C0E6FF] hover:bg-[#4DA2FF]/10 hover:border-[#4DA2FF]/50 bg-transparent"
-                    >
-                      <Eye className="w-3 h-3 mr-1" />
-                      View
-                    </Button>
                   </div>
                   <p className="text-[#C0E6FF] text-xs mb-1">{selectedUser.username}</p>
                 </div>
@@ -562,6 +539,28 @@ export function UserAvatarGrid({ users }: UserAvatarGridProps) {
                 </div>
               )}
 
+              {/* View Profile Button - At bottom */}
+              <div className="mt-3 pt-2 border-t border-[#C0E6FF]/20">
+                <Button
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    let identifier = selectedUser.id || selectedUser.username
+                    if (identifier) {
+                      // Remove @ prefix from username if present (it gets added in community display)
+                      if (identifier.startsWith('@')) {
+                        identifier = identifier.slice(1)
+                      }
+                      router.push(`/profile/${encodeURIComponent(identifier)}`)
+                    }
+                  }}
+                  size="sm"
+                  variant="outline"
+                  className="w-full h-7 text-xs border-[#C0E6FF]/30 text-[#C0E6FF] hover:bg-[#4DA2FF]/10 hover:border-[#4DA2FF]/50 bg-transparent"
+                >
+                  <Eye className="w-3 h-3 mr-1" />
+                  View Profile
+                </Button>
+              </div>
 
             </div>
           </div>

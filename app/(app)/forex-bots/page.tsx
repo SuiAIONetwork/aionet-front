@@ -174,10 +174,6 @@ export default function ForexBotsPage() {
           <h1 className="text-3xl font-bold text-white">Forex Trading Bots</h1>
           <p className="text-[#C0E6FF] mt-1">Advanced strategies for foreign exchange markets</p>
         </div>
-        <Button variant="outline" className="hidden md:flex items-center gap-2 border-[#C0E6FF] text-[#C0E6FF] hover:bg-[#C0E6FF]/10">
-          <BarChart className="h-4 w-4" />
-          Learn More
-        </Button>
       </div>
 
       {/* Forex Analytics */}

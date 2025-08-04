@@ -74,21 +74,7 @@ export interface AffiliatePayment {
   updated_at: string
 }
 
-export interface RaffleCraftBonusEvent {
-  id: string
-  user_address: string
-  ticket_purchase_id: string
-  ticket_transaction_hash: string
-  raffle_id?: string
-  bonus_days: number
-  bonus_applied: boolean
-  bonus_applied_at?: string
-  affiliate_subscription_id?: string
-  event_detected_at: string
-  processed_at?: string
-  created_at: string
-  updated_at: string
-}
+// RaffleCraft functionality removed
 
 export interface SubscriptionStatus {
   status: 'trial' | 'active' | 'expired' | 'cancelled'
@@ -412,84 +398,8 @@ class AffiliateSubscriptionService {
   }
 
   /**
-   * Process RaffleCraft ticket purchase bonus
+   * RaffleCraft functionality removed
    */
-  async processRaffleCraftBonus(
-    userAddress: string,
-    ticketPurchaseId: string,
-    ticketTransactionHash: string,
-    raffleId?: string,
-    bonusDays: number = 7
-  ): Promise<boolean> {
-    try {
-      console.log('🎟️ Processing RaffleCraft bonus for:', userAddress)
-
-      // Check if bonus already applied for this ticket
-      const { data: existingBonus, error: checkError } = await supabase
-        .from('rafflecraft_bonus_events')
-        .select('id')
-        .eq('ticket_purchase_id', ticketPurchaseId)
-        .single()
-
-      if (checkError && checkError.code !== 'PGRST116') {
-        console.error('Error checking existing bonus:', checkError)
-        throw checkError
-      }
-
-      if (existingBonus) {
-        console.log('⚠️ Bonus already applied for this ticket purchase')
-        return false
-      }
-
-      // Create bonus event record
-      const bonusEventData = {
-        user_address: userAddress,
-        ticket_purchase_id: ticketPurchaseId,
-        ticket_transaction_hash: ticketTransactionHash,
-        raffle_id: raffleId,
-        bonus_days: bonusDays,
-        bonus_applied: false,
-        event_detected_at: new Date().toISOString()
-      }
-
-      // Use admin client to bypass RLS for server-side operations
-      const supabaseAdmin = getSupabaseAdmin()
-      const { data: bonusEvent, error: bonusError } = await supabaseAdmin
-        .from('rafflecraft_bonus_events')
-        .insert(bonusEventData)
-        .select()
-        .single()
-
-      if (bonusError) {
-        console.error('Error creating bonus event:', bonusError)
-        throw bonusError
-      }
-
-      // Apply the bonus
-      const bonusApplied = await this.applySubscriptionBonus(userAddress, bonusDays, bonusEvent.id, 'rafflecraft_ticket', ticketPurchaseId)
-
-      if (bonusApplied) {
-        // Update bonus event as applied
-        await supabaseAdmin
-          .from('rafflecraft_bonus_events')
-          .update({
-            bonus_applied: true,
-            bonus_applied_at: new Date().toISOString(),
-            processed_at: new Date().toISOString()
-          })
-          .eq('id', bonusEvent.id)
-
-        console.log('✅ RaffleCraft bonus applied successfully')
-        toast.success(`🎟️ Bonus! +${bonusDays} days added to your affiliate subscription from RaffleCraft ticket purchase!`)
-        return true
-      }
-
-      return false
-    } catch (error) {
-      console.error('Failed to process RaffleCraft bonus:', error)
-      return false
-    }
-  }
 
   /**
    * Apply subscription bonus (extend current subscription or create bonus subscription)

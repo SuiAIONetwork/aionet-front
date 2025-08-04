@@ -13,7 +13,7 @@ export function MintingDistributionSection() {
     totalMinted: 125000,
     totalCollected: 125000,
     totalDistributed: 118750,
-    nextDistribution: "Next: 2 hours 15 minutes",
+
     distributionData: {
       affiliate: {
         percentage: "up to 50%",
@@ -140,7 +140,6 @@ export function MintingDistributionSection() {
           distributionData={mockData.distributionData}
           totalDistributed={mockData.totalDistributed}
           totalCollected={mockData.totalCollected}
-          nextDistribution={mockData.nextDistribution}
           recentDistributions={mockData.recentDistributions}
         />
       </div>

@@ -15,7 +15,6 @@ interface AnalyticsPanelProps {
   }
   totalDistributed: number
   totalCollected: number
-  nextDistribution: string
   recentDistributions: Array<{
     date: string
     amount: number
@@ -28,46 +27,58 @@ export function AnalyticsPanel({
   distributionData,
   totalDistributed,
   totalCollected,
-  nextDistribution,
   recentDistributions
 }: AnalyticsPanelProps) {
   const [activeTab, setActiveTab] = useState<'overview' | 'history'>('overview')
-  const [timeLeft, setTimeLeft] = useState({
-    hours: 2,
-    minutes: 15,
-    seconds: 30
+  const [sixMonthTimeLeft, setSixMonthTimeLeft] = useState({
+    months: 6,
+    days: 0,
+    hours: 0,
+    minutes: 0
   })
 
-  // Countdown timer effect
+  // 6-month countdown timer effect
   useEffect(() => {
+    // Calculate time until next 6-month distribution
+    const calculateTimeLeft = () => {
+      const now = new Date()
+      const nextDistribution = new Date()
+
+      // Set next distribution to 6 months from now (for demo purposes)
+      // In real implementation, this would be based on actual distribution schedule
+      nextDistribution.setMonth(now.getMonth() + 6)
+      nextDistribution.setDate(1) // First day of the month
+      nextDistribution.setHours(0, 0, 0, 0) // Midnight
+
+      const timeDiff = nextDistribution.getTime() - now.getTime()
+
+      if (timeDiff > 0) {
+        const months = Math.floor(timeDiff / (1000 * 60 * 60 * 24 * 30))
+        const days = Math.floor((timeDiff % (1000 * 60 * 60 * 24 * 30)) / (1000 * 60 * 60 * 24))
+        const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
+        const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60))
+
+        return { months, days, hours, minutes }
+      }
+
+      return { months: 0, days: 0, hours: 0, minutes: 0 }
+    }
+
+    // Update immediately
+    setSixMonthTimeLeft(calculateTimeLeft())
+
+    // Update every minute
     const timer = setInterval(() => {
-      setTimeLeft(prev => {
-        let { hours, minutes, seconds } = prev
-
-        if (seconds > 0) {
-          seconds--
-        } else if (minutes > 0) {
-          minutes--
-          seconds = 59
-        } else if (hours > 0) {
-          hours--
-          minutes = 59
-          seconds = 59
-        } else {
-          // Reset timer when it reaches 0 (simulate next distribution cycle)
-          hours = 2
-          minutes = 15
-          seconds = 30
-        }
-
-        return { hours, minutes, seconds }
-      })
-    }, 1000)
+      setSixMonthTimeLeft(calculateTimeLeft())
+    }, 60000)
 
     return () => clearInterval(timer)
   }, [])
 
-  const formatTime = (time: number) => time.toString().padStart(2, '0')
+  const formatTimeUnit = (value: number, unit: string) => {
+    if (value === 0) return ''
+    return `${value} ${unit}${value !== 1 ? 's' : ''}`
+  }
 
   // Prepare pie chart data
   const pieData = [
@@ -202,19 +213,6 @@ export function AnalyticsPanel({
         <div className="pb-6 border-b border-[#4DA2FF]/20">
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-xl font-bold text-white">Distribution Analytics</h3>
-          <div className="flex items-center gap-2 text-[#C0E6FF] text-sm">
-            <Clock className="w-4 h-4 text-[#4DA2FF]" />
-            <div className="flex flex-col items-end">
-              <span className="text-xs text-[#C0E6FF]">Next Distribution</span>
-              <div className="flex items-center gap-1 text-[#4DA2FF] font-mono font-bold">
-                <span>{formatTime(timeLeft.hours)}</span>
-                <span className="animate-pulse">:</span>
-                <span>{formatTime(timeLeft.minutes)}</span>
-                <span className="animate-pulse">:</span>
-                <span>{formatTime(timeLeft.seconds)}</span>
-              </div>
-            </div>
-          </div>
         </div>
 
         {/* Key Metrics */}
@@ -322,9 +320,24 @@ export function AnalyticsPanel({
                           className="w-4 h-4 rounded-full border-2 border-white/20"
                           style={{ backgroundColor: item.color }}
                         />
-                        <span className="text-[#C0E6FF] text-sm group-hover:text-white transition-colors font-medium">
-                          {item.name}
-                        </span>
+                        <div className="flex items-center gap-2">
+                          <span className="text-[#C0E6FF] text-sm group-hover:text-white transition-colors font-medium">
+                            {item.name}
+                          </span>
+                          {item.name === 'P.Level 10' && (
+                            <div className="flex items-center gap-1">
+                              <Clock className="w-3 h-3 text-[#8B5CF6]" />
+                              <span className="text-xs text-[#8B5CF6] font-mono">
+                                Next Distribution: {[
+                                  formatTimeUnit(sixMonthTimeLeft.months, 'month'),
+                                  formatTimeUnit(sixMonthTimeLeft.days, 'day'),
+                                  formatTimeUnit(sixMonthTimeLeft.hours, 'hour'),
+                                  formatTimeUnit(sixMonthTimeLeft.minutes, 'min')
+                                ].filter(Boolean).slice(0, 2).join(', ') || '0 mins'}
+                              </span>
+                            </div>
+                          )}
+                        </div>
                         <ExternalLink className="w-3 h-3 text-[#C0E6FF]/50 group-hover:text-[#4DA2FF] transition-colors opacity-0 group-hover:opacity-100" />
                       </div>
                       <div className="text-white font-semibold text-sm bg-[#4DA2FF]/10 px-2 py-1 rounded-md">

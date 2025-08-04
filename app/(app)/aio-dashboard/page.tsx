@@ -8,7 +8,7 @@ import { RoleImage } from "@/components/ui/role-image"
 import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { MintingDistributionSection } from "@/components/minting-distribution/minting-distribution-section"
-import { Users, Dice6, Rocket, RefreshCw, BookOpen, Wallet, TrendingUp, Shield, Droplets, PieChart, ExternalLink, Vote, X } from "lucide-react"
+import { Users, Rocket, RefreshCw, Wallet, TrendingUp, Shield, Droplets, PieChart, ExternalLink, Vote, X } from "lucide-react"
 import Image from "next/image"
 
 
@@ -218,66 +218,7 @@ export default function AIODashboard() {
       <MintingDistributionSection />
 
       {/* Progress Cards */}
-      <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
-        {/* E-Learning Progress */}
-        <div className="enhanced-card">
-          <div className="enhanced-card-content">
-            <div className="flex items-center gap-2 text-white mb-4">
-              <BookOpen className="w-5 h-5 text-[#8B5CF6]" />
-              <h3 className="font-semibold">E-Learning Launch</h3>
-            </div>
-            <div className="space-y-4">
-              <div className="text-center">
-                <div className="text-2xl font-bold text-white mb-2">
-                  {analytics.proHolders + analytics.royalHolders} / 250
-                </div>
-                <div className="text-sm text-[#C0E6FF]">PRO/ROYAL Holders for E-Learning Launch</div>
-                <div className="w-full bg-gray-700 rounded-full h-3 mt-2">
-                  <div
-                    className="bg-gradient-to-r from-[#8B5CF6] to-[#7C3AED] h-3 rounded-full transition-all duration-300"
-                    style={{ width: `${Math.min(((analytics.proHolders + analytics.royalHolders) / 250) * 100, 100)}%` }}
-                  ></div>
-                </div>
-              </div>
-
-              <div className="bg-[#8B5CF6]/10 border border-[#8B5CF6]/20 rounded-lg p-3">
-                <div className="text-[#C0E6FF] text-sm">
-                  E-Learning will launch when we reach 250 PRO/ROYAL holders, providing educational content and courses.
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* RaffleQuiz Progress */}
-        <div className="enhanced-card">
-          <div className="enhanced-card-content">
-            <div className="flex items-center gap-2 text-white mb-4">
-              <Dice6 className="w-5 h-5 text-[#FF6B35]" />
-              <h3 className="font-semibold">RaffleQuiz Launch</h3>
-            </div>
-            <div className="space-y-4">
-              <div className="text-center">
-                <div className="text-2xl font-bold text-white mb-2">
-                  {analytics.proHolders + analytics.royalHolders} / 500
-                </div>
-                <div className="text-sm text-[#C0E6FF]">PRO/ROYAL Holders for RaffleQuiz Launch</div>
-                <div className="w-full bg-gray-700 rounded-full h-3 mt-2">
-                  <div
-                    className="bg-gradient-to-r from-[#FF6B35] to-[#F7931E] h-3 rounded-full transition-all duration-300"
-                    style={{ width: `${Math.min(((analytics.proHolders + analytics.royalHolders) / 500) * 100, 100)}%` }}
-                  ></div>
-                </div>
-              </div>
-
-              <div className="bg-[#FF6B35]/10 border border-[#FF6B35]/20 rounded-lg p-3">
-                <div className="text-[#C0E6FF] text-sm">
-                  RaffleQuiz will launch when we reach 500 PRO/ROYAL holders, featuring interactive quizzes and rewards.
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+      <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-2">
 
         {/* DEWhale Progress */}
         <div className="enhanced-card">

@@ -84,18 +84,19 @@ export function AffiliateSubscriptionPayment({
   // Get SUI balance
   const [suiBalance, setSuiBalance] = useState<number>(0)
 
-  // Duration options (days) with pricing
+  // Duration options (days) with pricing and discounts
   const durationOptions = [
-    { days: 30, label: "1 Month", price: 30 },
-    { days: 60, label: "2 Months", price: 60 },
-    { days: 90, label: "3 Months", price: 90 },
-    { days: 180, label: "6 Months", price: 180 },
-    { days: 365, label: "1 Year", price: 360 }
+    { days: 30, label: "1 Month", price: 25, originalPrice: 25, discount: 0 },
+    { days: 60, label: "2 Months", price: 47, originalPrice: 50, discount: 6 },
+    { days: 90, label: "3 Months", price: 67, originalPrice: 75, discount: 10.7 },
+    { days: 180, label: "6 Months", price: 120, originalPrice: 150, discount: 20 },
+    { days: 365, label: "1 Year (12 Months)", price: 210, originalPrice: 300, discount: 30 }
   ]
 
-  // Calculate price based on selected duration
+  // Calculate price based on selected duration (now uses predefined discounted prices)
   const calculatePrice = (days: number) => {
-    return (days / 30) * 30 // $30 per 30 days
+    const option = durationOptions.find(opt => opt.days === days)
+    return option ? option.price : (days / 30) * 25 // Fallback to $25 per month
   }
 
   const selectedOption = durationOptions.find(opt => opt.days === selectedDuration)
@@ -342,8 +343,22 @@ export function AffiliateSubscriptionPayment({
                         className="text-white hover:bg-[#C0E6FF]/10"
                       >
                         <div className="flex justify-between items-center w-full">
-                          <span>{option.label} ({option.days} days)</span>
-                          <span className="ml-4 text-[#4DA2FF] font-semibold">${option.price}</span>
+                          <div className="flex flex-col">
+                            <span>{option.label} ({option.days} days)</span>
+                            {option.discount > 0 && (
+                              <span className="text-xs text-green-400">Save {option.discount}%</span>
+                            )}
+                          </div>
+                          <div className="ml-4 text-right">
+                            {option.discount > 0 ? (
+                              <div className="flex flex-col items-end">
+                                <span className="text-[#4DA2FF] font-semibold">${option.price}</span>
+                                <span className="text-xs text-gray-400 line-through">${option.originalPrice}</span>
+                              </div>
+                            ) : (
+                              <span className="text-[#4DA2FF] font-semibold">${option.price}</span>
+                            )}
+                          </div>
                         </div>
                       </SelectItem>
                     ))}
@@ -402,10 +417,18 @@ export function AffiliateSubscriptionPayment({
                     <div>
                       <p className="text-[#C0E6FF] text-sm">Selected Duration</p>
                       <p className="text-white font-semibold">{selectedOption?.label || `${selectedDuration} days`}</p>
+                      {selectedOption && selectedOption.discount > 0 && (
+                        <p className="text-green-400 text-xs">Save {selectedOption.discount}% with upfront payment</p>
+                      )}
                     </div>
                     <div className="text-right">
                       <p className="text-[#C0E6FF] text-sm">Total Price</p>
-                      <p className="text-white font-bold text-lg">${calculatedPrice.toFixed(2)}</p>
+                      <div className="flex flex-col items-end">
+                        <p className="text-white font-bold text-lg">${calculatedPrice.toFixed(2)}</p>
+                        {selectedOption && selectedOption.discount > 0 && (
+                          <p className="text-gray-400 text-sm line-through">${selectedOption.originalPrice.toFixed(2)}</p>
+                        )}
+                      </div>
                     </div>
                   </div>
                   <div className="flex justify-between items-center pt-2 border-t border-[#C0E6FF]/10">
@@ -414,6 +437,14 @@ export function AffiliateSubscriptionPayment({
                       {isRecurring ? 'Recurring Subscription' : 'One-Time Payment'}
                     </p>
                   </div>
+                  {selectedOption && selectedOption.discount > 0 && (
+                    <div className="flex justify-between items-center pt-2 border-t border-[#C0E6FF]/10">
+                      <p className="text-[#C0E6FF] text-sm">You Save</p>
+                      <p className="text-green-400 font-semibold">
+                        ${(selectedOption.originalPrice - selectedOption.price).toFixed(2)} ({selectedOption.discount}%)
+                      </p>
+                    </div>
+                  )}
                 </div>
               </div>
 

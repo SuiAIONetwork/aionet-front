@@ -6,7 +6,6 @@
 import { createClient } from '@supabase/supabase-js'
 import CryptoJS from 'crypto-js'
 import { tradingService } from './trading-service'
-import { quizService } from './quiz-service'
 import { creatorService } from './creator-service'
 import { getImageUrl } from './supabase-storage'
 
@@ -258,26 +257,13 @@ class LeaderboardService {
   }
 
   /**
-   * Calculate quiz score based on RaffleQuiz participation
+   * Calculate quiz score (removed - fallback only)
    */
   private async calculateQuizScore(userData: any): Promise<number> {
-    try {
-      const quizStats = await quizService.getUserQuizStats(userData.address)
-      if (!quizStats) {
-        // Fallback for users with no quiz data
-        const level = userData.profile_level || 1
-        const xp = userData.total_xp || 0
-        return Math.round((level * 5) + (xp * 0.01))
-      }
-
-      return quizService.calculateQuizScore(quizStats)
-    } catch (error) {
-      console.error('Failed to calculate quiz score:', error)
-      // Fallback calculation
-      const level = userData.profile_level || 1
-      const xp = userData.total_xp || 0
-      return Math.round((level * 5) + (xp * 0.01))
-    }
+    // Fallback calculation since quiz functionality is removed
+    const level = userData.profile_level || 1
+    const xp = userData.total_xp || 0
+    return Math.round((level * 5) + (xp * 0.01))
   }
 
   /**
@@ -450,15 +436,7 @@ class LeaderboardService {
             }
           }
 
-          // Get quiz stats for quiz category
-          let quizStats = null
-          if (category === 'quiz') {
-            try {
-              quizStats = await quizService.getQuizStatsForLeaderboard(user.address)
-            } catch (error) {
-              console.error('Failed to get quiz stats for user:', user.address, error)
-            }
-          }
+          // Quiz functionality removed - no stats needed
 
           // Get creator stats for creators category
           let creatorStats = null
@@ -514,11 +492,12 @@ class LeaderboardService {
             }
             break
           case 'quiz':
+            // Quiz functionality removed - use fallback score
             score = quizScore
             metrics = {
-              correct_answers: quizStats?.correct_answers || 0,
-              quiz_participation: quizStats?.quiz_participation || 0,
-              tickets_minted: quizStats?.tickets_minted || 0
+              correct_answers: 0,
+              quiz_participation: 0,
+              tickets_minted: 0
             }
             break
           case 'creators':
@@ -715,7 +694,8 @@ class LeaderboardService {
                   countryData.totalVolume += (user.total_xp || 0)
                   break
                 case 'quiz':
-                  countryData.totalVolume += (achievementsData.quiz_score || user.current_xp || 0)
+                  // Quiz functionality removed - use XP as fallback
+                  countryData.totalVolume += (user.current_xp || 0)
                   break
                 case 'creators':
                   countryData.totalVolume += (achievementsData.total_posts || 0) * 100

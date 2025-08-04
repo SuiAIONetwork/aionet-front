@@ -946,7 +946,7 @@ export function PersistentProfileSystem() {
                     <div key={reward.level} className="bg-[#1a2f51] rounded-lg p-2 border border-[#C0E6FF]/20 text-center">
                       <div className="text-white font-bold text-xs mb-1">Level {reward.level}</div>
                       <div className="text-[#C0E6FF] text-xs mb-2 min-h-[1.5rem] flex items-center justify-center leading-tight">
-                        {reward.level <= 5 ? `Level ${reward.level}` : `${reward.tokens} pAION`}
+                        {reward.level <= 5 ? `Affiliate Lv.${reward.level}` : `${reward.tokens} pAION`}
                       </div>
                       {(() => {
                         // If already claimed, show checkmark

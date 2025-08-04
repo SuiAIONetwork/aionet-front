@@ -62,7 +62,7 @@ export const Sidebar = memo(function Sidebar() {
     { name: "Dashboard", href: "/aio-dashboard", icon: LayoutDashboard, restricted: false },
     { name: "Admin Dashboard", href: "/admin-dashboard", icon: Shield, adminOnly: true },
     {
-      name: "Copy Trading",
+      name: "Copy Trading EU",
       href: "/copy-trading",
       icon: Bot,
       restricted: false,
@@ -105,14 +105,14 @@ export const Sidebar = memo(function Sidebar() {
       ? item.subItems?.some(subItem => pathname === subItem.href) || pathname === item.href
       : pathname === item.href
 
-    const isExpanded = (item.name === "Copy Trading" && copyTradingExpanded)
+    const isExpanded = (item.name === "Copy Trading EU" && copyTradingExpanded)
 
     if (item.hasDropdown && (!isCollapsed || isMobileOpen)) {
       return (
         <div>
           <button
             onClick={() => {
-              if (item.name === "Copy Trading") {
+              if (item.name === "Copy Trading EU") {
                 setCopyTradingExpanded(!copyTradingExpanded)
               }
             }}
@@ -320,6 +320,20 @@ export const Sidebar = memo(function Sidebar() {
             ))}
           </div>
 
+          {/* Contact Support Button */}
+          {(!isCollapsed || isMobileOpen) && (
+            <div className="px-2 mb-3">
+              <Button
+                className="w-full bg-[#1a2f51] border border-[#C0E6FF]/30 text-[#C0E6FF] hover:bg-[#C0E6FF]/10 transition-all duration-200"
+                variant="outline"
+                onClick={() => router.push('/contact-support')}
+              >
+                <MessageSquare className="w-4 h-4 mr-2" />
+                Contact Support
+              </Button>
+            </div>
+          )}
+
           {/* Subscription Button */}
           {(!isCollapsed || isMobileOpen) && (
             <div className="px-2 mb-3">
@@ -330,6 +344,21 @@ export const Sidebar = memo(function Sidebar() {
               >
                 <CreditCard className="w-4 h-4 mr-2" />
                 Manage Subscription
+              </Button>
+            </div>
+          )}
+
+          {/* Collapsed Contact Support Button */}
+          {isCollapsed && !isMobileOpen && (
+            <div className="p-2 m-2 mb-3 bg-[#0c1b36]/80 backdrop-blur-sm rounded-lg border border-blue-500/20 flex justify-center">
+              <Button
+                className="w-full bg-[#1a2f51] border border-[#C0E6FF]/30 text-[#C0E6FF] hover:bg-[#C0E6FF]/10"
+                size="icon"
+                variant="outline"
+                onClick={() => router.push('/contact-support')}
+                title="Contact Support"
+              >
+                <MessageSquare className="w-4 h-4" />
               </Button>
             </div>
           )}

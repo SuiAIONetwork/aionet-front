@@ -16,10 +16,10 @@ import { useSubscription } from "@/contexts/subscription-context"
 
 interface TradingStats {
   totalEarnings: string
-  stableCoinProfits: string
-  lastMonthPercentage: number
+  totalVolume: string
+  totalCycles: number
+  bybitConnection: 'connected' | 'disconnected'
   connectionStatus: 'connected' | 'disconnected'
-  isActive: boolean
 }
 
 interface FollowedBot {
@@ -55,10 +55,10 @@ export function CopyTradingInterface() {
   const { tier } = useSubscription()
   const [tradingStats] = useState<TradingStats>({
     totalEarnings: "$12,450.32",
-    stableCoinProfits: "$8,920.15",
-    lastMonthPercentage: 20,
-    connectionStatus: 'disconnected',
-    isActive: false
+    totalVolume: "$2,847,392.50",
+    totalCycles: 47,
+    bybitConnection: 'disconnected',
+    connectionStatus: 'disconnected'
   })
 
   const [isConnecting, setIsConnecting] = useState(false)
@@ -269,54 +269,16 @@ export function CopyTradingInterface() {
           </div>
         </div>
 
-        {/* Stable Coin Profits */}
-        <div className="enhanced-card">
-          <div className="enhanced-card-content">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-white">Stable Coin Profits</p>
-                <p className="text-2xl font-bold text-white">{tradingStats.stableCoinProfits}</p>
-                <div className="flex items-center mt-1">
-                  <TrendingUp className="w-4 h-4 text-green-400 mr-1" />
-                  <span className="text-[#C0E6FF] text-sm">+{tradingStats.lastMonthPercentage}% from last month</span>
-                </div>
-              </div>
-              <div className="bg-[#4DA2FF]/20 p-3 rounded-full">
-                <TrendingUp className="w-6 h-6 text-white" />
-              </div>
-            </div>
-          </div>
-        </div>
-
         {/* Total Volume */}
         <div className="enhanced-card">
           <div className="enhanced-card-content">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-white">Total Volume</p>
-                <p className="text-2xl font-bold text-white">
-                  {(() => {
-                    const totalVolume = displayBots.reduce((sum, bot) => {
-                      const volumeStr = bot.volume.value.replace(/[KMS]/g, '');
-                      const volumeNum = parseFloat(volumeStr);
-                      const multiplier = bot.volume.value.includes('K') ? 1000 :
-                                       bot.volume.value.includes('M') ? 1000000 :
-                                       bot.volume.value.includes('S') ? 1000000 : 1;
-                      return sum + (volumeNum * multiplier);
-                    }, 0);
-
-                    if (totalVolume >= 1000000) {
-                      return `$${(totalVolume / 1000000).toFixed(2)}M`;
-                    } else if (totalVolume >= 1000) {
-                      return `$${(totalVolume / 1000).toFixed(2)}K`;
-                    } else {
-                      return `$${totalVolume.toFixed(2)}`;
-                    }
-                  })()}
-                </p>
+                <p className="text-2xl font-bold text-white">{tradingStats.totalVolume}</p>
                 <div className="flex items-center mt-1">
-                  <TrendingUp className="w-4 h-4 text-green-400 mr-1" />
-                  <span className="text-[#C0E6FF] text-sm">From {displayBots.length} followed bots</span>
+                  <BarChart3 className="w-4 h-4 text-blue-400 mr-1" />
+                  <span className="text-[#C0E6FF] text-sm">Cumulative trading volume</span>
                 </div>
               </div>
               <div className="bg-[#4DA2FF]/20 p-3 rounded-full">
@@ -326,7 +288,26 @@ export function CopyTradingInterface() {
           </div>
         </div>
 
-        {/* Connection Button */}
+        {/* Total 10% Cycles */}
+        <div className="enhanced-card">
+          <div className="enhanced-card-content">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm font-medium text-white">Total 10% Cycles</p>
+                <p className="text-2xl font-bold text-white">{tradingStats.totalCycles}</p>
+                <div className="flex items-center mt-1">
+                  <Activity className="w-4 h-4 text-purple-400 mr-1" />
+                  <span className="text-[#C0E6FF] text-sm">Completed profit cycles</span>
+                </div>
+              </div>
+              <div className="bg-[#4DA2FF]/20 p-3 rounded-full">
+                <Activity className="w-6 h-6 text-white" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Bybit Connection */}
         <div className="enhanced-card">
           <div className="enhanced-card-content">
             <div className="flex items-center justify-between">
@@ -343,7 +324,7 @@ export function CopyTradingInterface() {
                   <p className="text-xs text-[#C0E6FF]">
                     No account?{" "}
                     <a
-                      href="https://www.bybit.com/register?affiliate_id=AIONET"
+                      href="https://shorturl.at/flOL4"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-[#4DA2FF] hover:underline inline-flex items-center gap-1"

@@ -52,6 +52,9 @@ const TRANSACTIONS_PER_PAGE = 20
 
 const TRANSACTION_TYPE_OPTIONS = [
   { value: 'all', label: 'All Types' },
+  { value: 'affiliate_commission', label: 'Affiliate Commission' },
+  { value: 'trading_circles', label: 'Trading Circles' },
+  { value: 'affiliate_subscription', label: 'Affiliate Subscription' },
   { value: 'earned', label: 'Earned' },
   { value: 'spent', label: 'Spent' },
   { value: 'transfer_in', label: 'Transfer In' },

@@ -175,7 +175,7 @@ export function SubscriptionGuard({
             <li>• Access to affiliate controls dashboard</li>
             <li>• Referral management</li>
             <li>• Earn network commissions</li>
-            <li>• RaffleQuiz bonus integration</li>
+            <li>• Premium platform features</li>
             <li>• Commission tracking and analytics</li>
           </ul>
         </div>

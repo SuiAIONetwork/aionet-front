@@ -17,7 +17,7 @@ import { AffiliateSubscriptionPayment } from "@/components/affiliate-subscriptio
 import { SubscriptionGuard } from "@/components/subscription-guard"
 import { useCurrentAccount } from "@mysten/dapp-kit"
 import { useSuiAuth } from "@/contexts/sui-auth-context"
-import { useRaffleCraftIntegration } from "@/hooks/use-rafflecraft-integration"
+
 import { useBackendIntegration } from "@/hooks/useBackendIntegration"
 import { CommissionTracking } from "@/components/commission-tracking"
 import { ContactSponsorModal } from "@/components/contact-sponsor-modal"
@@ -95,7 +95,7 @@ const getAvatarUrl = (blobId: string | null | undefined): string | undefined => 
 export function AffiliateControls() {
   const account = useCurrentAccount()
   const { user, isSignedIn } = useSuiAuth()
-  const { isListening, startListening, stopListening } = useRaffleCraftIntegration()
+
   const backendIntegration = useBackendIntegration()
 
   // State for search and filters

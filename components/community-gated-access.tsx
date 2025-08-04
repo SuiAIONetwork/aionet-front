@@ -146,11 +146,11 @@ export function CommunityGatedAccess() {
           <div className="enhanced-card-content">
             <div className="flex items-center gap-2 text-white mb-4">
               <SocialIcon platform="discord" className="w-5 h-5" />
-              <h3 className="font-semibold">Discord Access</h3>
+              <h3 className="font-semibold">Community Access</h3>
             </div>
             <div className="space-y-4">
               <p className="text-[#C0E6FF] text-sm">
-                Join our exclusive Discord server for tech discussions, blockchain insights, and AIO Connect engagement.
+                Join our exclusive community server for tech discussions, blockchain insights, and AIO Connect engagement.
               </p>
 
               <div className="space-y-3">
@@ -159,7 +159,7 @@ export function CommunityGatedAccess() {
                   className="w-full bg-[#5865F2] hover:bg-[#5865F2]/80 text-white"
                 >
                   <ExternalLink className="w-4 h-4 mr-2" />
-                  Join Discord Server
+                  Join Community Server
                 </Button>
 
                 {hasNFT && (
